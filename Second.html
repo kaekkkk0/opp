@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>หมูพุงยุ้ยยย 💖 Alangkarn</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #fff;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  }
+
+  header h1 {
+    font-size: 3.8rem;
+    letter-spacing: 4px;
+  }
+
+  header p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-weight: 300;
+    min-height: 2rem;
+  }
+
+  .section {
+    max-width: 900px;
+    margin: 70px auto;
+    background: rgba(255,255,255,0.15);
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 40px rgba(31,38,135,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section img {
+    width: 45%;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+
+  .section .text {
+    width: 50%;
+    color: #fff7f7;
+  }
+
+  .section .text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #ffe9e9;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+  }
+
+  .section .text p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 25px;
+  }
+
+  .btn-love {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff4e50, #f9d423);
+    color: #fff;
+    font-weight: 700;
+    padding: 15px 50px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 25px rgba(255,78,80,0.7);
+    transition: all 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .btn-love:hover {
+    background: linear-gradient(45deg, #f9d423, #ff4e50);
+    box-shadow: 0 8px 30px rgba(249,212,35,0.8);
+  }
+
+  footer {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff9f9;
+    opacity: 0.7;
+  }
+
+  /* Typing effect style */
+  #typing-text {
+    border-right: 3px solid #fff;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* Parallax background on each section (subtle) */
+  .section:nth-child(odd) {
+    background-attachment: fixed;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .section {
+      flex-direction: column;
+      padding: 30px 20px;
+    }
+    .section img, .section .text {
+      width: 100%;
+    }
+    .section img {
+      margin-bottom: 20px;
+    }
+  }
+  /* Canvas กลีบดอกไม้หล่น อยู่ข้างหลังเนื้อหา */
+#petal-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* ไม่ให้รบกวนคลิก */
+  z-index: 0;
+}
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffb6c1;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+.back-button:hover {
+  background-color: #ff69b4;
+}
+
+
+
+</style>
+</head>
+<body>
+<canvas id="petal-canvas"></canvas>
+
+<header>
+  <h1>หมูพุงยุ้ยยยของพี่!! 💖</h1>
+  <p id="typing-text"></p>
+</header>
+
+<section class="section">
+  <img src="img/Screenshot 2025-03-25 141155.png" alt="ความรัก">
+  <div class="text">
+    <h2>พี่รักน้องเสมอนะะเนยอ้วนของพี่</h2>
+    <p>ทุกครั้งที่ได้เจอเธอ โลกก็สดใสขึ้น มองไปทางไหนก็เห็นแต่ความสุข ขอบคุณที่อยู่ข้าง ๆ กันเสมอ ไม่ว่าจะสุขหรือทุกข์ ฉันจะดูแลและรักเธอมากกว่าใครทั้งหมดในโลกนี้</p>
+   
+  </div>
+</section>
+
+<section class="section">
+  <div class="text">
+    <h2>หมูพุงยุ้ยของพี่</h2>
+    <p>ทุกครั้งที่เห็นรอยยิ้มของเธอ หัวใจฉันก็เต้นแรงขึ้นเป็นร้อยเท่า มันเหมือนกับว่าโลกนี้สวยงามขึ้นทันทีที่เธอยิ้ม</p>
+  </div>
+  <img src="img/Screenshot 2025-03-25 141542.png" alt="รอยยิ้ม">
+</section>
+
+<section class="section">
+  <img src="img/Screenshot 2025-03-25 141547.png" alt="ความทรงจำ">
+  <div class="text">
+    <h2>อ้วนเนยย</h2>
+    <p>ขอให้ทุกวันที่ผ่านไป เราจะได้สร้างความทรงจำดี ๆ ร่วมกันไปตลอด แม้เวลาจะผ่านไปนานแค่ไหน</p>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="text">
+    <h2>รักนะจุ้บบๆๆ</h2>
+    <p>จุ้บบบบบบบบบๆๆๆๆๆ</p>
+  </div>
+  <img src="img/Screenshot 2025-04-06 111031.png" alt="ความสุข">
+</section>
+
+<section class="section">
+  <img src="img/Screenshot 2025-03-25 141148.png" alt="อนาคต">
+  <div class="text">
+    <h2>รักที่สุดในโลกกกก</h2>
+    <p>❤️😍😒😘💕💕💕❤️❤️❤️😶‍🌫️🙄🙄🙄🙄</p>
+  </div>
+</section>
+
+<a href="index.html" class="back-button">← กดกลับไป</a>
+
+<footer>
+  &copy; หมูพุงยุ้ยยย!!!!!!
+</footer>
+
+<script>
+  // Typing effect
+  const text = "หมูพุงยุ้ยยย 💕";
+  const typingText = document.getElementById('typing-text');
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      typingText.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 90);
+    }
+  }
+  window.onload = () => {
+    type();
+    scrollAnimation(); // เรียกตอนโหลดด้วยเลย
+  };
+
+  // Scroll animation
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) - 100
+    );
+  }
+
+  function scrollAnimation() {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+      if (isInViewport(section)) {
+        section.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', scrollAnimation);
+</script>
+<script>
+  function initPetals() {
+    const canvas = document.getElementById('petal-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const petalsCount = 50;
+    const petals = [];
+
+    class Petal {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * -height;
+        this.size = 10 + Math.random() * 15;
+        this.speed = 1 + Math.random() * 2;
+        this.angle = Math.random() * 2 * Math.PI;
+        this.angularSpeed = 0.01 + Math.random() * 0.02;
+        this.color = `rgba(255, 182, 193, ${0.7 + Math.random() * 0.3})`;
+      }
+
+      update() {
+        this.y += this.speed;
+        this.angle += this.angularSpeed;
+        this.x += Math.sin(this.angle) * 0.5;
+
+        if (this.y > height) {
+          this.y = -this.size;
+          this.x = Math.random() * width;
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = this.color;
+
+        // วาดกลีบ 4 กลีบง่าย ๆ เป็นวงรี
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          ctx.ellipse(0, 0, this.size * 0.3, this.size * 0.7, (Math.PI / 2) * i, 0, Math.PI);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      petals.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    for (let i = 0; i < petalsCount; i++) {
+      petals.push(new Petal());
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+  }
+
+  window.addEventListener('load', initPetals);
+</script>
+
+
+</body>
+</html>
